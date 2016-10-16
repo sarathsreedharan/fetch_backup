@@ -1,0 +1,204 @@
+(define (domain blocksworld-letter)
+  (:requirements :strips :typing)
+  (:types block letter region marker)
+  (:predicates (on ?x - block ?y - block)
+           (ontable ?x - block)
+           (stacked-by-robot ?x - letter ?y - letter)
+           (stacked-by-human ?x - letter ?y - letter)
+           (has_letter ?x - block ?y - letter)
+           (clear ?x - block)
+           (handempty)
+           (r_handempty)
+           (holding ?x - block)
+           (free ?m - marker)
+           (r_holding ?x - block)
+           (near ?r - region)
+           (far ?r - region)
+           (at ?x - block ?r - region)
+           (robot_can_prep_action)
+           (human_can_prep_action)
+           (in ?m - marker ?r - region)
+           (word_formed ?a - letter ?b - letter ?c - letter)
+           )
+
+  (:action pickup
+         :parameters (?x - block ?r - region)
+         :precondition (and (near ?r) (clear ?x) (ontable ?x) (handempty) (at ?x ?r) (human_can_prep_action) )
+         :effect
+         (and (not (ontable ?x))
+           (not (clear ?x))
+           (not (handempty))
+           (holding ?x)
+           (not (at ?x ?r))
+           (robot_can_prep_action)
+           (not (human_can_prep_action))
+        ))
+
+  (:action pickup_far
+         :parameters (?x - block ?r - region)
+         :precondition (and (far ?r) (clear ?x) (ontable ?x) (handempty) (at ?x ?r) (human_can_prep_action) )
+         :effect
+         (and (not (ontable ?x))
+           (not (clear ?x))
+           (not (handempty))
+           (holding ?x)
+           (not (at ?x ?r))
+           (robot_can_prep_action)
+           (not (human_can_prep_action))
+        ))
+
+
+  (:action putdown
+         :parameters (?x - block ?r - region)
+         :precondition (and (near ?r) (holding ?x) (human_can_prep_action) )
+         :effect
+         (and (not (holding ?x))
+           (clear ?x)
+           (handempty)
+           (ontable ?x)
+           (at ?x ?r)
+           (robot_can_prep_action)
+           (not (human_can_prep_action))
+          ))
+
+  (:action stack
+         :parameters (?x - block ?y - block ?r - region)
+         :precondition (and (near ?r) (holding ?x) (clear ?y) (at ?y ?r) (human_can_prep_action) )
+         :effect
+         (and (not (holding ?x))
+           (not (clear ?y))
+           (clear ?x)
+           (handempty)
+           (on ?x ?y)
+           (at ?x ?r)
+           (robot_can_prep_action)
+           (not (human_can_prep_action))
+
+        ))
+  (:action unstack
+         :parameters (?x - block ?y - block ?r - region)
+         :precondition (and (near ?r) (on ?x ?y) (clear ?x) (handempty) (at ?x ?r) (human_can_prep_action) )
+         :effect
+         (and (holding ?x)
+           (clear ?y)
+           (not (clear ?x))
+           (not (handempty))
+           (not (on ?x ?y))
+           (not (at ?x ?r))
+           (robot_can_prep_action)
+           (not (human_can_prep_action))
+
+        ))
+
+
+  (:action robot_pickup
+         :parameters (?x - block ?r - region)
+         :precondition (and (near ?r) (clear ?x) (ontable ?x) (r_handempty) (at ?x ?r) (robot_can_prep_action))
+         :effect
+         (and (not (ontable ?x))
+           (not (clear ?x))
+           (not (r_handempty))
+           (r_holding ?x)
+           (not (at ?x ?r))
+           (human_can_prep_action)
+           (not (robot_can_prep_action))
+
+         )
+        )
+
+  (:action robot_pickup_far
+         :parameters (?x - block ?r - region)
+         :precondition (and (far ?r) (clear ?x) (ontable ?x) (r_handempty) (at ?x ?r)(robot_can_prep_action))
+         :effect
+         (and (not (ontable ?x))
+           (not (clear ?x))
+           (not (r_handempty))
+           (r_holding ?x)
+           (not (at ?x ?r))
+           (human_can_prep_action)
+           (not (robot_can_prep_action))
+
+         )
+        )
+
+  (:action robot_putdown
+         :parameters (?x - block ?m - marker ?r - region)
+         :precondition (and (near ?r) (in ?m ?r) (r_holding ?x) (robot_can_prep_action) (free ?m))
+         :effect
+         (and (not (r_holding ?x))
+           (clear ?x)
+           (r_handempty)
+           (ontable ?x)
+           (not (free ?m))
+           (human_can_prep_action)
+           (not (robot_can_prep_action))
+
+          ))
+
+
+  (:action robot_putdown_far
+         :parameters (?x - block ?m - marker ?r - region)
+         :precondition (and (far ?r) (in ?m ?r) (r_holding ?x) (robot_can_prep_action) (free ?m))
+         :effect
+         (and (not (r_holding ?x))
+           (clear ?x)
+           (r_handempty)
+           (ontable ?x)
+           (not (free ?m))
+           (human_can_prep_action)
+           (not (robot_can_prep_action))
+          ))
+
+  (:action robot_stack
+         :parameters (?x - block ?y - block ?r - region)
+         :precondition (and (r_holding ?x) (near ?r) (clear ?y) (at ?y ?r) (robot_can_prep_action) )
+         :effect
+         (and (not (r_holding ?x))
+           (not (clear ?y))
+           (clear ?x)
+           (r_handempty)
+           (on ?x ?y)
+           (at ?x ?r)
+           (human_can_prep_action)
+           (not (robot_can_prep_action))
+
+        ))
+  (:action robot_unstack
+         :parameters (?x - block ?y - block ?r - region)
+         :precondition (and (on ?x ?y) (clear ?x) (near ?r) (r_handempty) (at ?x ?r) (robot_can_prep_action) )
+         :effect
+         (and (r_holding ?x)
+           (clear ?y)
+           (not (clear ?x))
+           (not (r_handempty))
+           (not (on ?x ?y))
+           (not (at ?x ?r))
+           (human_can_prep_action)
+           (not (robot_can_prep_action))
+        ))
+
+(:action three_letter_word_formed
+         :parameters (?x - block ?y - block ?z - block ?a - letter ?b - letter ?c - letter)
+         :precondition (and (on ?x ?y) (on ?y ?z) (has_letter ?x ?a) (has_letter ?y ?b) (has_letter ?z ?c) )
+         :effect
+         (and
+             (word_formed ?a ?b ?c)
+             (not (robot_can_prep_action))
+           (not (human_can_prep_action))
+        ))
+
+(:action robot_noop
+:parameters ()
+         :precondition (and (robot_can_prep_action))
+         :effect
+         (and
+              (human_can_prep_action)
+        ))
+(:action noop
+:parameters ()
+         :precondition (and (human_can_prep_action))
+         :effect
+         (and
+              (robot_can_prep_action)
+        ))
+)

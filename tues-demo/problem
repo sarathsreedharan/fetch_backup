@@ -1,0 +1,48 @@
+(define (problem BW-rand-3)
+(:domain blocksworld-letter)
+(:objects
+b1 b2 b3 b4 b5 b6 b7 - block
+E N C O T - letter
+r1 r2 - region
+m1 m2 - marker
+)
+(:init
+(handempty)
+(near r1)
+(far r2)
+(at b1 r1)
+(at b2 r1)
+(at b3 r1)
+(at b4 r1)
+(at b5 r1)
+(at b6 r2)
+(in m1 r1)
+(in m2 r1)
+(free m1)
+(free m2)
+(ontable b1)
+(has_letter b1 E)
+(on b2 b1)
+(has_letter b2 N)
+(clear b2)
+(ontable b3)
+(has_letter b3 C)
+(on b4 b3)
+(has_letter b4 O)
+(clear b4)
+(clear b6)
+(has_letter b5 T)
+(ontable b6)
+(ontable b5)
+(has_letter b6 T)
+(clear b5)
+(r_handempty)
+(robot_can_prep_action)
+)
+(:goal
+(and
+(word_formed T O C)
+(word_formed E T N)
+)
+)
+)

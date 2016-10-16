@@ -1,0 +1,10 @@
+objects: ['b1','b2','b3','b4', 'b5', 'b6'] #,'b8'] #,'b9','b10','b11','b12','b13','b14','b15','b16']
+location_markers: ['ar_marker_15']
+holding_marker: ['ar_marker_17']
+marker_map: {'b1': 'ar_marker_4', 'b2': 'ar_marker_6', 'b3':'ar_marker_3', 'b4':'ar_marker_5', 'b5': 'ar_marker_2', 'b6': 'ar_marker_0'}
+letter_map: {'b1': 'E', 'b2': 'N', 'b3': 'C', 'b4': 'O', 'b5': 'T', 'b6': 'T'}
+block_map: {'T': ['b6', 'b5'], 'N': ['b2'], 'C': ['b3'], 'O': ['b4'], 'E': ['b1']}
+full_state: ['(handempty)','(near r1)','(far r2)','(at b1 r1)','(at b2 r1)','(at b3 r1)','(at b4 r1)','(at b5 r1)','(at b6 r2)','(in m1 r1)','(in m2 r1)','(free m1)','(free m2)','(ontable b1)','(has_letter b1 E)','(on b2 b1)','(has_letter b2 N)','(clear b2)','(ontable b3)','(has_letter b3 C)','(on b4 b3)','(has_letter b4 O)','(clear b4)','(clear b6)','(has_letter b5 T)','(ontable b6)','(ontable b5)','(has_letter b6 T)','(clear b5)','(r_handempty)','(robot_can_prep_action)']
+speed_params: [ ]
+normal_speed: [0.75,0.75,0.75,0.757,0,0,0,0,0.5,0.5,0.75,1.256,0.5,0.1,0.75,0.757,1.25,1.13,1.25,1.13]
+slow_speed: [0.345, 0.345, 0.345, 0.345, 0, 0, 0, 0, 0.25, 0.25, 0.345, 0.628, 0.25,0.05, 0.345, 0.345, 0.625, 0.565, 0.635, 0.345]

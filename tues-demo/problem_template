@@ -1,0 +1,18 @@
+(define (problem BW-rand-3)
+(:domain blocksworld-letter)
+(:objects
+b1 b2 b3 b4 b5 b6 b7 - block
+E N C O T - letter
+r1 r2 - region
+m1 m2 - marker
+)
+(:init
+<%init-state%>
+)
+(:goal
+(and
+(word_formed T O C)
+(word_formed E T N)
+)
+)
+)

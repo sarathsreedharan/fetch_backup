@@ -1,0 +1,8 @@
+(robot_pickup b3 r1)
+(pickup_far b6 r2)
+(robot_stack b3 b2 r1)
+(stack b6 b5 r1)
+(robot_pickup b1 r1)
+(pickup b4 r1)
+(robot_stack b1 b3 r1)
+(stack b4 b6 r1)
